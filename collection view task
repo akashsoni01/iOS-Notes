@@ -1,0 +1,50 @@
+//
+//  ViewController.swift
+//  Left_Aligned_CollectionView_in_Swift
+//
+//  Created by Akash Soni on 13/11/19.
+//  Copyright © 2019 Akash Soni. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    var array = [Int]()
+    let spacing:CGFloat = 0.0
+    @IBOutlet weak var collectionView:UICollectionView!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+//        let layout = UICollectionViewFlowLayout()
+//        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+//        layout.minimumInteritemSpacing = spacing
+        // Do any additional setup after loading the view.
+        array = Array(repeating: 0, count: 50)
+    }
+
+
+}
+extension ViewController:UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return array.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
+        cell.layer.cornerRadius = 5
+        cell.layer.borderWidth = 1
+        cell.layer.borderColor = UIColor.blue.cgColor
+        cell.label.text = "\(indexPath.row)"
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let numberOfItemsPerRow:CGFloat = 3
+//        let spacingBetweenCells:CGFloat = 5
+//
+//        let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
+//        //Amount of total spacing in a row
+//        let width = (self.collectionView.bounds.width - totalSpacing)/numberOfItemsPerRow
+        let width = (self.collectionView.bounds.width / 50)
+        return CGSize(width: width*CGFloat(indexPath.row+1 * 10), height: 70)
+    }
+    
+}
